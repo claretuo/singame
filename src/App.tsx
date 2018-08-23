@@ -1,13 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'mobx-react/native';
+import stores from './store';
+import { Hello } from './components/Hello';
 
 export default class App extends React.Component<{}, {}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Provider { ...stores }>
+          <Hello name="hello" enthusiasmLevel={1} />
+        </Provider>
       </View>
     );
   }

@@ -61,7 +61,7 @@
     "no-shadowed-variable": true,
     "no-string-literal": true,
     "no-switch-case-fall-through": true,
-    "no-unused-expression": true,
+    "no-unused-expression": [true, "allow-tagged-template"],
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "radix": true,
@@ -119,6 +119,7 @@
       true,
       "check-format",
       "allow-leading-underscore",
+      "allow-pascal-case",
       "ban-keywords"
     ],
     "whitespace": [
