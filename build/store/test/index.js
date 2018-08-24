@@ -6,28 +6,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mobx_1 = require("mobx");
-var Test = /** @class */ (function () {
-    function Test() {
-        var _this = this;
+const mobx_1 = require("mobx");
+class Test {
+    constructor() {
         this.sum = 0;
-        this.increase = function () {
-            _this.sum++;
+        this.increase = () => {
+            this.sum++;
         };
-        this.decrease = function () {
-            _this.sum--;
+        this.decrease = () => {
+            this.sum--;
         };
     }
-    __decorate([
-        mobx_1.observable
-    ], Test.prototype, "sum", void 0);
-    __decorate([
-        mobx_1.action
-    ], Test.prototype, "increase", void 0);
-    __decorate([
-        mobx_1.action
-    ], Test.prototype, "decrease", void 0);
-    return Test;
-}());
-var test = new Test();
+}
+__decorate([
+    mobx_1.observable
+], Test.prototype, "sum", void 0);
+__decorate([
+    mobx_1.action
+], Test.prototype, "increase", void 0);
+__decorate([
+    mobx_1.action
+], Test.prototype, "decrease", void 0);
+const test = new Test();
 exports.default = test;

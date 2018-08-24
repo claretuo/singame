@@ -1,17 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22,39 +9,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(require("react"));
-var react_native_1 = require("react-native");
-var native_1 = require("mobx-react/native");
-var Hello = /** @class */ (function (_super) {
-    __extends(Hello, _super);
-    function Hello(props) {
-        var _this = _super.call(this, props) || this;
-        _this.onIncrement = function () { return _this.setState({ enthusiasmLevel: _this.state.enthusiasmLevel + 1 }); };
-        _this.onDecrement = function () { return _this.setState({ enthusiasmLevel: _this.state.enthusiasmLevel - 1 }); };
-        _this.onIncrement1 = function () {
+const react_1 = __importDefault(require("react"));
+const react_native_1 = require("react-native");
+const native_1 = require("mobx-react/native");
+let Hello = class Hello extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.onIncrement = () => this.setState({ enthusiasmLevel: this.state.enthusiasmLevel + 1 });
+        this.onDecrement = () => this.setState({ enthusiasmLevel: this.state.enthusiasmLevel - 1 });
+        this.onIncrement1 = () => {
             console.log('on increment ');
-            if (_this.props.test && _this.props.test.increase) {
-                _this.props.test.increase();
+            if (this.props.test && this.props.test.increase) {
+                this.props.test.increase();
             }
         };
-        _this.onDecrement1 = function () {
+        this.onDecrement1 = () => {
             console.log('on increment ');
-            if (_this.props.test && _this.props.test.decrease) {
-                _this.props.test.decrease();
+            if (this.props.test && this.props.test.decrease) {
+                this.props.test.decrease();
             }
         };
-        _this.getExclamationMarks = function (numChars) { return Array(numChars + 1).join('!'); };
+        this.getExclamationMarks = (numChars) => Array(numChars + 1).join('!');
         console.log(props);
         if ((props.enthusiasmLevel || 0) <= 0) {
             throw new Error('You could be a little more enthusiastic. :D');
         }
-        _this.state = {
+        this.state = {
             enthusiasmLevel: props.enthusiasmLevel || 1
         };
-        return _this;
     }
-    Hello.prototype.render = function () {
-        var list = ['a', 'b', 'c'];
+    render() {
+        const list = ['a', 'b', 'c'];
         console.log(this.props);
         return (react_1.default.createElement(react_native_1.View, { style: styles.root },
             react_1.default.createElement(react_native_1.Text, { style: styles.greeting },
@@ -73,16 +58,15 @@ var Hello = /** @class */ (function (_super) {
                     react_1.default.createElement(react_native_1.Button, { title: "-", onPress: this.onDecrement1, accessibilityLabel: "decrement", color: "red" })),
                 react_1.default.createElement(react_native_1.View, { style: styles.button },
                     react_1.default.createElement(react_native_1.Button, { title: "+", onPress: this.onIncrement1, accessibilityLabel: "increment", color: "blue" })))));
-    };
-    Hello = __decorate([
-        native_1.inject('test'),
-        native_1.observer
-    ], Hello);
-    return Hello;
-}(react_1.default.Component));
+    }
+};
+Hello = __decorate([
+    native_1.inject('test'),
+    native_1.observer
+], Hello);
 exports.Hello = Hello;
 // styles
-var styles = react_native_1.StyleSheet.create({
+const styles = react_native_1.StyleSheet.create({
     root: {
         alignItems: 'center',
         alignSelf: 'center'

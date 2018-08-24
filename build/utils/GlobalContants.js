@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_native_1 = require("react-native");
-var isIOS = react_native_1.Platform.OS === 'ios';
+const react_native_1 = require("react-native");
+const isIOS = react_native_1.Platform.OS === 'ios';
 exports.gScreen = {
     width: react_native_1.Dimensions.get('window').width,
     height: react_native_1.Dimensions.get('window').height,
