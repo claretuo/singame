@@ -6,7 +6,7 @@
 	<dict>
 		<key>Base.lproj/LaunchScreen.nib</key>
 		<data>
-		pS4Gme93utY+4WaBQFLiWtVUGnw=
+		c8aN39wkhKflyMv6ecNfUl1Y3Aw=
 		</data>
 		<key>Frameworks/IDEBundleInjection.framework/IDEBundleInjection</key>
 		<data>
@@ -71,7 +71,7 @@
 		</data>
 		<key>PlugIns/SinGameTests.xctest/SinGameTests</key>
 		<data>
-		nwMYpRCl/1p/E9I1HpuTrWyZ+o8=
+		yQ84jDTk24EcOnQdqIou46xo3r8=
 		</data>
 		<key>PlugIns/SinGameTests.xctest/_CodeSignature/CodeResources</key>
 		<data>
@@ -84,11 +84,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pS4Gme93utY+4WaBQFLiWtVUGnw=
+			c8aN39wkhKflyMv6ecNfUl1Y3Aw=
 			</data>
 			<key>hash2</key>
 			<data>
-			uuaImSVY6lWFkQxMUTFx7rza60sDG4DAlKz0qQI4SIs=
+			bjeD0HqgLq5B5jy1G0ltghkmjvOoBPYrwKqJTFdvyQI=
 			</data>
 		</dict>
 		<key>Frameworks/IDEBundleInjection.framework/IDEBundleInjection</key>
@@ -229,11 +229,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			nwMYpRCl/1p/E9I1HpuTrWyZ+o8=
+			yQ84jDTk24EcOnQdqIou46xo3r8=
 			</data>
 			<key>hash2</key>
 			<data>
-			A8atICnUC9QLIak2FkKgCCADPthD7UIsyq4gWSUG8vw=
+			ulYKfifGBetOEuVU3418XdO5F4Fh/eo4HhreA9fprW0=
 			</data>
 		</dict>
 		<key>PlugIns/SinGameTests.xctest/_CodeSignature/CodeResources</key>
