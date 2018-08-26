@@ -1,12 +1,16 @@
-import { NavigationContainer, TabNavigator } from 'react-navigation';
+import { NavigationContainer, TabNavigator, StackNavigator } from 'react-navigation';
 import containers from './containers';
 
 const { Main, SignIn, Profile, Game } = containers;
-const app: NavigationContainer = TabNavigator({
+const Home: NavigationContainer = TabNavigator({
   Main: { screen: Main },
-  SignIn: { screen: SignIn },
   Profile: { screen: Profile },
   Game: { screen: Game },
 }, { initialRouteName: 'Main'});
+
+const app: NavigationContainer = StackNavigator({
+  Home: { screen: Home },
+  SignIn: SignIn
+}, { initialRouteName: 'SignIn' });
 
 export default app;
