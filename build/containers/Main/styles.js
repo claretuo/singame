@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalContants_1 = require("./../../utils/GlobalContants");
+const GlobalContants_1 = require("../../utils/GlobalContants");
 const react_native_1 = require("react-native");
 exports.default = react_native_1.StyleSheet.create({
     container: {

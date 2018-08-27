@@ -7,10 +7,12 @@
     "@types/react": "^16.4.11",
     "@types/react-addons-test-utils": "^0.14.22",
     "@types/react-native": "^0.56.10",
+    "@types/react-native-i18n": "^2.0.0",
     "@types/react-navigation": "^2.0.17",
     "@types/react-test-renderer": "^16.0.2",
     "@types/typescript": "^2.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
+    "copyfiles": "^2.0.0",
     "jest": "^23.5.0",
     "jest-react-native": "^18.0.0",
     "react-addons-test-utils": "^15.6.2",
@@ -25,7 +27,8 @@
     "android": "react-native run-android && tsc -w",
     "ios": "react-native run-ios && tsc -w",
     "test": "jest",
-    "build": "rm -rf build/* && tsc"
+    "build": "rm -rf build/* && tsc && npm run add-assets",
+    "add-assets": "copyfiles -u 1 'src/**/!(*.js|*.jsx|*.map|*.ts|*.tsx)' build/"
   },
   "jest": {
     "preset": "react-native",
@@ -50,6 +53,7 @@
     "mobx-react": "^5.2.5",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-i18n": "^2.0.15",
     "react-navigation": "^2.12.1"
   }
 }

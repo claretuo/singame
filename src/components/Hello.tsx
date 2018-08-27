@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { observer, inject } from 'mobx-react/native';
-import { ITest } from 'store/test';
+import { ITest } from '../store/test';
 
 export interface Props {
   name: string;

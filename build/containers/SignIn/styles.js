@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const GlobalContants_1 = require("./../../utils/GlobalContants");
+const GlobalContants_1 = require("../../utils/GlobalContants");
 const react_native_1 = require("react-native");
 exports.default = react_native_1.StyleSheet.create({
     container: {
@@ -36,16 +36,18 @@ exports.default = react_native_1.StyleSheet.create({
         alignItems: 'stretch'
     },
     loginTitle: {
-        width: 50,
-        alignItems: 'center',
+        paddingLeft: 10,
+        paddingRight: 10,
+        alignItems: 'flex-start',
         justifyContent: 'center'
     },
     loginTxt: {
         fontSize: 19,
-        color: '#505050'
+        color: '#505050',
     },
     loginExtra: {
-        flex: 1
+        flex: 1,
+        justifyContent: 'center'
     },
     loginBtn: {
         width: GlobalContants_1.gScreen.width * 0.59,
@@ -70,6 +72,17 @@ exports.default = react_native_1.StyleSheet.create({
     tipTxt: {
         color: '#505050',
         fontSize: 15
+    },
+    dropDownBtn: {
+        width: 23,
+        height: 23,
+        alignSelf: 'center'
+    },
+    loginToggle: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        justifyContent: 'center'
     },
     text: {
         color: '#555',

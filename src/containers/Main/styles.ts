@@ -1,4 +1,4 @@
-import { gScreen } from './../../utils/GlobalContants';
+import { gScreen } from '../../utils/GlobalContants';
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
