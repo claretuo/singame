@@ -49,11 +49,14 @@
     "cacheDirectory": ".jest/cache"
   },
   "dependencies": {
+    "@types/react-native-swiper": "^1.5.10",
     "mobx": "^5.0.4",
     "mobx-react": "^5.2.5",
     "react": "16.3.1",
     "react-native": "~0.55.2",
+    "react-native-device-info": "^0.22.5",
     "react-native-i18n": "^2.0.15",
+    "react-native-swiper": "^1.5.13",
     "react-navigation": "^2.12.1"
   }
 }

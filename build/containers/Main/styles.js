@@ -12,8 +12,30 @@ exports.default = react_native_1.StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center'
     },
+    wrapper: {
+        height: 214
+    },
+    slide1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#9DD6EB',
+    },
+    slide2: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#97CAE5',
+    },
+    slide3: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#92BBD9',
+    },
     text: {
-        color: '#555',
-        fontSize: 17
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold',
     }
 });
