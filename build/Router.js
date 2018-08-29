@@ -14,5 +14,5 @@ const Home = react_navigation_1.TabNavigator({
 const app = react_navigation_1.StackNavigator({
     Home: { screen: Home },
     SignIn: SignIn
-}, { initialRouteName: 'Home' });
+}, { initialRouteName: 'SignIn' });
 exports.default = app;

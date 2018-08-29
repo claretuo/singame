@@ -8,19 +8,43 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const mobx_1 = require("mobx");
 const react_native_1 = require("react-native");
-class Test {
+class SignIn {
     constructor() {
         this.loading = false;
-        this.country = '';
         this.phone = '';
         this.countryList = [];
         this.verifyCode = '';
+        this.setCountry = (countryId) => {
+            this.countryId = countryId;
+        };
+        this.setPhone = (phone) => {
+            this.phone = phone;
+        };
+        this.setVerifyCode = (verifyCode) => {
+            this.verifyCode = verifyCode;
+        };
+        this.getCountries = () => {
+            const countried = Promise.resolve([
+                {
+                    id: 1,
+                    name: '中国'
+                },
+                {
+                    id: 2,
+                    name: '美国'
+                },
+            ]);
+            this.loading = true;
+            countried.then((data) => {
+                this.loading = false;
+                this.countryList = data;
+            });
+        };
         this.getVerifyCode = () => {
             this.loading = true;
             fetch(`/verifycode/${this.phone}`, { method: 'GET' }).then((result) => {
                 return result.json();
-            }).then((verifyCode) => {
-                this.verifyCode = verifyCode;
+            }).then(() => {
                 this.loading = false;
             }).catch(e => {
                 console.error(e.message);
@@ -30,15 +54,31 @@ class Test {
         };
         this.login = () => {
             this.loading = true;
-            fetch(`/verifycode/${this.phone}`, { method: 'POST', body: {
+            fetch('/verifycode', { method: 'POST', body: JSON.stringify({
                     phone: this.phone,
                     verifyCode: this.verifyCode,
-                    country: this.country
-                }
+                    countryId: this.countryId
+                })
             }).then((result) => {
                 return result.json();
-            }).then((verifyCode) => {
-                this.verifyCode = verifyCode;
+            }).then(() => {
+                this.loading = false;
+            }).catch(e => {
+                console.error(e.message);
+                react_native_1.Alert.alert(e.message);
+                this.loading = false;
+            });
+        };
+        this.forgot = () => {
+            this.loading = true;
+            fetch('/forgot', {
+                method: 'POST', body: JSON.stringify({
+                    phone: this.phone,
+                    countryId: this.countryId
+                })
+            }).then((result) => {
+                return result.json();
+            }).then(() => {
                 this.loading = false;
             }).catch(e => {
                 console.error(e.message);
@@ -50,24 +90,39 @@ class Test {
 }
 __decorate([
     mobx_1.observable
-], Test.prototype, "loading", void 0);
+], SignIn.prototype, "loading", void 0);
 __decorate([
     mobx_1.observable
-], Test.prototype, "country", void 0);
+], SignIn.prototype, "countryId", void 0);
 __decorate([
     mobx_1.observable
-], Test.prototype, "phone", void 0);
+], SignIn.prototype, "phone", void 0);
 __decorate([
     mobx_1.observable
-], Test.prototype, "countryList", void 0);
+], SignIn.prototype, "countryList", void 0);
 __decorate([
     mobx_1.observable
-], Test.prototype, "verifyCode", void 0);
+], SignIn.prototype, "verifyCode", void 0);
 __decorate([
     mobx_1.action
-], Test.prototype, "getVerifyCode", void 0);
+], SignIn.prototype, "setCountry", void 0);
 __decorate([
     mobx_1.action
-], Test.prototype, "login", void 0);
-const test = new Test();
-exports.default = test;
+], SignIn.prototype, "setPhone", void 0);
+__decorate([
+    mobx_1.action
+], SignIn.prototype, "setVerifyCode", void 0);
+__decorate([
+    mobx_1.action
+], SignIn.prototype, "getCountries", void 0);
+__decorate([
+    mobx_1.action
+], SignIn.prototype, "getVerifyCode", void 0);
+__decorate([
+    mobx_1.action
+], SignIn.prototype, "login", void 0);
+__decorate([
+    mobx_1.action
+], SignIn.prototype, "forgot", void 0);
+const signIn = new SignIn();
+exports.default = signIn;

@@ -8,28 +8,66 @@ export interface Country {
 
 export interface SignInProps {
   loading: boolean;
-  country: string;
+  countryId: number;
   phone: string;
   countryList: Country[];
   verifyCode: string;
+  setCountry: (country: number) => void;
+  setPhone: (phone: string) => void;
+  getCountries: () => void;
   getVerifyCode: () => void;
+  setVerifyCode: (verifyCode: string) => void;
   login: () => void;
+  forgot: () => void;
 }
 
-class Test {
+class SignIn {
   @observable loading: boolean = false;
-  @observable country: string = '';
+  @observable countryId?: number;
   @observable phone: string = '';
   @observable countryList: Country[] = [];
   @observable verifyCode: string = '';
+
+  @action
+  setCountry = (countryId: number) => {
+    this.countryId = countryId;
+  }
+
+  @action
+  setPhone = (phone: string) => {
+    this.phone = phone;
+  }
+
+  @action
+  setVerifyCode = (verifyCode: string) => {
+    this.verifyCode = verifyCode;
+  }
+
+  @action
+  getCountries = () => {
+    const countried = Promise.resolve([
+      {
+        id: 1,
+        name: '中国'
+      },
+      {
+        id: 2,
+        name: '美国'
+      },
+    ]);
+    this.loading = true;
+    countried.then((data) => {
+      this.loading = false;
+      this.countryList = data;
+    });
+  }
 
   @action
   getVerifyCode = () => {
     this.loading = true;
     fetch(`/verifycode/${this.phone}`, { method: 'GET' }).then((result: Response) => {
       return result.json();
-    }).then((verifyCode: string) => {
-      this.verifyCode = verifyCode;
+    }).then(() => {
       this.loading = false;
     }).catch(e => {
       console.error(e.message);
@@ -40,15 +78,32 @@ class Test {
   @action
   login = () => {
     this.loading = true;
-    fetch(`/verifycode/${this.phone}`, { method: 'POST', body: {
+    fetch('/verifycode', { method: 'POST', body: JSON.stringify({
         phone: this.phone,
         verifyCode: this.verifyCode,
-        country: this.country
-      }
+        countryId: this.countryId
+      })
     }).then((result: Response) => {
       return result.json();
-    }).then((verifyCode: string) => {
-      this.verifyCode = verifyCode;
+    }).then(() => {
+      this.loading = false;
+    }).catch(e => {
+      console.error(e.message);
+      Alert.alert(e.message);
+      this.loading = false;
+    });
+  }
+  @action
+  forgot = () => {
+    this.loading = true;
+    fetch('/forgot', {
+      method: 'POST', body: JSON.stringify({
+        phone: this.phone,
+        countryId: this.countryId
+      })
+    }).then((result: Response) => {
+      return result.json();
+    }).then(() => {
       this.loading = false;
     }).catch(e => {
       console.error(e.message);
@@ -58,6 +113,6 @@ class Test {
   }
 }
 
-const test = new Test();
+const signIn = new SignIn();
 
-export default test;
+export default signIn;

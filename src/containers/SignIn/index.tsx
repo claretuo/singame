@@ -5,19 +5,24 @@ import styles from './styles';
 import { NavigationInjectedProps, AnimatedValue } from 'react-navigation';
 import { i18n } from '../../i18n';
 import Select from '../../components/Select';
+import { observer, inject } from 'mobx-react/native';
+import { SignInProps, Country } from '../../store/signIn/index';
 
 interface IProps {
-  someProp?: string;
+  signIn: SignInProps;
 }
 
 interface IState {
-  country: string;
-  phone: string;
-  password: string;
   rotation: AnimatedValue;
   modalVisible: boolean;
+  getCodeEnable: boolean;
+  codeTime: number;
 }
 
+let timer: number;
+
+@inject('signIn')
+@observer
 export default class SignIn extends React.Component<IProps & NavigationInjectedProps, IState> {
   static navigationOptions = () => {
     return {
@@ -27,22 +32,18 @@ export default class SignIn extends React.Component<IProps & NavigationInjectedP
   constructor(props: any) {
     super(props);
     this.state = {
-      country: 'ch',
-      phone: '',
-      password: '',
       rotation: new Animated.Value(0),
-      modalVisible: false
+      modalVisible: false,
+      getCodeEnable: true,
+      codeTime: 60
     };
   }
   componentDidMount() {
-    // Animated.timing(this.state.rotation, {
-    //   toValue: 0,
-    //   duration: 500,
-    // }).start();
+    this.props.signIn.getCountries();
   }
-  countryChange = (country: string) => {
+  countryChange = (countryId: number) => {
+    this.props.signIn.setCountry(countryId);
     this.setState({
-      country,
       modalVisible: false
     });
     this.toggleRotation(0);
@@ -61,17 +62,40 @@ export default class SignIn extends React.Component<IProps & NavigationInjectedP
     }).start();
   }
   phoneChange = (phone: string) => {
-    this.setState({ phone });
+    this.props.signIn.setPhone(phone);
   }
-  passwordChange = (password: string) => {
-    this.setState({ password });
+  getVerifyCode = () => {
+    if (timer) {
+      return false;
+    }
+    const self = this;
+    this.setState({
+      getCodeEnable: false,
+    });
+    timer = setInterval(() => {
+      if (self.state.codeTime <= 0) {
+        clearInterval(timer);
+        self.setState({
+          codeTime: 60,
+          getCodeEnable: true
+        });
+      }
+      self.setState({
+        codeTime: self.state.codeTime - 1
+      });
+    }, 1000);
+  }
+  verifyCodeChange = (verifyCode: string) => {
+    this.props.signIn.setVerifyCode(verifyCode);
   }
   login = () => {
     console.log('login btn pressed', this.props.navigation);
+    this.props.signIn.login();
     this.props.navigation.replace('Home');
   }
   forgot = () => {
     console.log('forgot btn pressed');
+    this.props.signIn.forgot();
   }
 
   setModalVisible = (modalVisible: boolean) => {
@@ -79,8 +103,21 @@ export default class SignIn extends React.Component<IProps & NavigationInjectedP
     this.setState({ modalVisible });
   }
 
+  componentWillUnmount() {
+    if (timer) {
+      clearInterval(timer);
+    }
+  }
+
   public render() {
-    const { country, phone, password, modalVisible } = this.state;
+    const { countryId, phone, verifyCode, countryList, loading } = this.props.signIn;
+    const {  modalVisible, getCodeEnable, codeTime } = this.state;
+    const selectedCountry = countryId ?
+      (countryList.find(country => country.id === countryId) as Country).name
+      : '';
+    if (loading) {
+      console.log('loading');
+    }
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
@@ -93,7 +130,7 @@ export default class SignIn extends React.Component<IProps & NavigationInjectedP
             </View>
             <TouchableOpacity style={styles.loginToggle} onPress={this.setModalVisible.bind(this, true)}>
               <View style={styles.loginExtra}>
-                <Text style={styles.loginTxt}>{country}</Text>
+                <Text style={styles.loginTxt}>{selectedCountry}</Text>
               </View>
               <Animated.Image style={[styles.dropDownBtn, {
                 transform: [
@@ -111,10 +148,23 @@ export default class SignIn extends React.Component<IProps & NavigationInjectedP
             <View style={styles.loginTitle}>
               <Text style={styles.loginTxt}>+86</Text>
             </View>
-            <TextInput placeholder={i18n.t('login.phonePlaceholder')} value={phone} onChangeText={this.phoneChange} />
+            <TextInput
+              style={[styles.loginExtra, styles.text]}
+              placeholder={i18n.t('login.phonePlaceholder')}
+              maxLength={15}
+              value={phone}
+              onChangeText={this.phoneChange} />
           </View>
           <View style={styles.loginItem}>
-            <TextInput style={styles.loginExtra} value={password} onChangeText={this.passwordChange} secureTextEntry></TextInput>
+            <TouchableOpacity
+              disabled={!getCodeEnable}
+              style={
+                [styles.getCode, (!getCodeEnable ? styles.disabled : null)
+                ]}
+              onPress={this.getVerifyCode}>
+              <Text style={styles.codeTxt}>{getCodeEnable ? i18n.t('login.getCode') : `${i18n.t('login.getCoding')}(${codeTime})`}</Text>
+            </TouchableOpacity>
+            <TextInput style={[styles.loginExtra, styles.text]} maxLength={6} value={verifyCode} onChangeText={this.verifyCodeChange}></TextInput>
           </View>
           <TouchableHighlight style={styles.loginBtn} onPress={this.login}>
             <Text style={styles.btnTxt}>{i18n.t('login.loginBtn')}</Text>
@@ -123,7 +173,7 @@ export default class SignIn extends React.Component<IProps & NavigationInjectedP
             <Text style={styles.tipTxt}>{i18n.t('login.forgot')}</Text>
           </TouchableOpacity>
         </View>
-        <Select visible={ modalVisible } options={['ch', 'en']} defaultVal={country} choose={this.countryChange} hide={this.hideCountry} />
+        <Select visible={modalVisible} options={countryList} defaultVal={countryId} choose={this.countryChange} hide={this.hideCountry} />
       </View>
     );
   }

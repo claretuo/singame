@@ -43,17 +43,11 @@ class Select extends react_1.default.Component {
         };
         this.state = {
             offset: new react_native_1.Animated.Value(0),
-            choice: this.props.defaultVal,
-            timer: undefined,
+            choice: this.props.defaultVal
         };
     }
     componentDidMount() {
         this.in();
-    }
-    componentWillUnMount() {
-        if (this.state.timer) {
-            clearTimeout(this.state.timer);
-        }
     }
     render() {
         if (!this.props.visible) {
@@ -73,7 +67,7 @@ class Select extends react_1.default.Component {
                         react_1.default.createElement(react_native_1.Text, { style: styles_1.default.cancelText }, "\u53D6\u6D88")),
                     react_1.default.createElement(react_native_2.TouchableOpacity, { style: styles_1.default.btn, onPress: this.ok },
                         react_1.default.createElement(react_native_1.Text, { style: styles_1.default.okText }, "\u786E\u5B9A"))),
-                react_1.default.createElement(react_native_1.Picker, { style: styles_1.default.picker, mode: "dialog", selectedValue: this.state.choice, onValueChange: choice => this.setState({ choice: choice }) }, this.props.options.map((aOption) => react_1.default.createElement(react_native_1.Picker.Item, { color: "#555", label: aOption, value: aOption, key: aOption })))));
+                react_1.default.createElement(react_native_1.Picker, { style: styles_1.default.picker, mode: "dialog", selectedValue: this.state.choice, onValueChange: choice => this.setState({ choice: choice }) }, this.props.options.map((aOption) => react_1.default.createElement(react_native_1.Picker.Item, { color: "#555", label: aOption.name, value: aOption.id, key: aOption.id })))));
         }
     }
 }

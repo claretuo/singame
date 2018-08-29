@@ -84,8 +84,27 @@ exports.default = react_native_1.StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'center'
     },
+    getCode: {
+        paddingHorizontal: 10,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        backgroundColor: '#2196f3',
+        borderRadius: 4
+    },
+    codeTxt: {
+        color: '#fff',
+        fontSize: 10
+    },
+    disabled: {
+        backgroundColor: '#ddd'
+    },
     text: {
         color: '#555',
-        fontSize: 17
+        fontSize: 17,
+        letterSpacing: 1,
+        paddingLeft: 10,
+        overflow: 'hidden',
     }
 });

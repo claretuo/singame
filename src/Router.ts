@@ -11,6 +11,6 @@ const Home: NavigationContainer = TabNavigator({
 const app: NavigationContainer = StackNavigator({
   Home: { screen: Home },
   SignIn: SignIn
-}, { initialRouteName: 'Home' });
+}, { initialRouteName: 'SignIn' });
 
 export default app;
