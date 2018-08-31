@@ -3,13 +3,14 @@ import React from 'react';
 import { View, Text, ScrollView, RefreshControl } from 'react-native';
 import styles from './styles';
 import Swiper from 'react-native-swiper';
+import { i18n } from '../../i18n';
 interface IState {
   refreshing: boolean;
 }
 export default class Main extends React.Component<{}, IState> {
   static navigationOptions = () => {
     return {
-      tabBarLabel: '首页',
+      tabBarLabel: i18n.t('router.main'),
       header: null
     };
   }

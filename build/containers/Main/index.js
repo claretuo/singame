@@ -7,6 +7,7 @@ const react_1 = __importDefault(require("react"));
 const react_native_1 = require("react-native");
 const styles_1 = __importDefault(require("./styles"));
 const react_native_swiper_1 = __importDefault(require("react-native-swiper"));
+const i18n_1 = require("../../i18n");
 class Main extends react_1.default.Component {
     constructor(props) {
         super(props);
@@ -39,7 +40,7 @@ class Main extends react_1.default.Component {
 }
 Main.navigationOptions = () => {
     return {
-        tabBarLabel: '首页',
+        tabBarLabel: i18n_1.i18n.t('router.main'),
         header: null
     };
 };
