@@ -1,12 +1,11 @@
+import { inject, observer } from 'mobx-react/native';
 import React from 'react';
-
-import { View, Text, TextInput, TouchableHighlight, TouchableOpacity, Animated } from 'react-native';
-import styles from './styles';
-import { NavigationInjectedProps, AnimatedValue } from 'react-navigation';
-import { i18n } from '../../i18n';
+import { Animated, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { AnimatedValue, NavigationInjectedProps } from 'react-navigation';
 import Select from '../../components/Select';
-import { observer, inject } from 'mobx-react/native';
-import { SignInProps, Country } from '../../store/signIn/index';
+import { i18n } from '../../i18n';
+import { Country, SignInProps } from '../../store/signIn/index';
+import styles from './styles';
 
 interface IProps {
   signIn: SignInProps;
@@ -19,7 +18,7 @@ interface IState {
   codeTime: number;
 }
 
-let timer: number;
+let timer: NodeJS.Timer;
 
 @inject('signIn')
 @observer
@@ -141,7 +140,7 @@ export default class SignIn extends React.Component<IProps & NavigationInjectedP
                     })
                   }
                 ]
-              }]} source={require('./drop-down.png')} />
+              }]} source={require('../../resources/drop-down.png')} />
             </TouchableOpacity>
           </View>
           <View style={styles.loginItem}>

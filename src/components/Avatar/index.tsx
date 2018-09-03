@@ -12,7 +12,7 @@ export default class Avatar extends React.Component<IProps, {}> {
     const { uri, useDefault, circle, border } = this.props;
     const source = uri ? {
       uri
-    } : require('./timg.jpeg');
+    } : require('../../resources/timg.jpeg');
     if (!uri && !useDefault) {
       return null;
     }
