@@ -4,30 +4,13 @@ import DeviceInfo from 'react-native-device-info';
 import stores from './store';
 import Root from './Router';
 import { initP2PServer } from './p2p/index';
-import { Server } from 'ws';
 
-interface IAppState {
-  wss?: Server;
-}
-
-export default class App extends React.Component<{}, IAppState> {
+export default class App extends React.Component<{}, {}> {
   constructor(props: any) {
     super(props);
   }
   componentDidMount() {
-    const wss: Server = initP2PServer(3030);
-    this.setState({
-      wss,
-    });
-  }
-  componentWillUnmount() {
-    const { wss } = this.state;
-    if (wss) {
-      wss.close();
-      this.setState({
-        wss: undefined
-      });
-    }
+    initP2PServer(3030);
   }
   render() {
     console.log('device info', DeviceInfo.getDeviceCountry(), DeviceInfo.getDeviceId(), DeviceInfo.getDeviceLocale(), DeviceInfo.getDeviceName());

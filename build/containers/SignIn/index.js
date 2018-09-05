@@ -9,12 +9,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const native_1 = require("mobx-react/native");
 const react_1 = __importDefault(require("react"));
 const react_native_1 = require("react-native");
-const styles_1 = __importDefault(require("./styles"));
-const i18n_1 = require("../../i18n");
 const Select_1 = __importDefault(require("../../components/Select"));
-const native_1 = require("mobx-react/native");
+const i18n_1 = require("../../i18n");
+const styles_1 = __importDefault(require("./styles"));
 let timer;
 let SignIn = class SignIn extends react_1.default.Component {
     constructor(props) {
@@ -122,7 +122,7 @@ let SignIn = class SignIn extends react_1.default.Component {
                                             })
                                         }
                                     ]
-                                }], source: require('./drop-down.png') }))),
+                                }], source: require('../../resources/drop-down.png') }))),
                 react_1.default.createElement(react_native_1.View, { style: styles_1.default.loginItem },
                     react_1.default.createElement(react_native_1.View, { style: styles_1.default.loginTitle },
                         react_1.default.createElement(react_native_1.Text, { style: styles_1.default.loginTxt }, "+86")),

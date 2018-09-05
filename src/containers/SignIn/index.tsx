@@ -1,7 +1,7 @@
 import { inject, observer } from 'mobx-react/native';
 import React from 'react';
 import { Animated, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { AnimatedValue, NavigationInjectedProps } from 'react-navigation';
+import { NavigationInjectedProps } from 'react-navigation';
 import Select from '../../components/Select';
 import { i18n } from '../../i18n';
 import { Country, SignInProps } from '../../store/signIn/index';
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 interface IState {
-  rotation: AnimatedValue;
+  rotation: Animated.Value;
   modalVisible: boolean;
   getCodeEnable: boolean;
   codeTime: number;

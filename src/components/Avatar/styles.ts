@@ -2,9 +2,17 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   imgContainer: {
-    width: 64,
-    height: 64,
+    position: 'relative'
+  },
+  img: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    borderStyle: 'solid'
+  },
+  editIcon: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: 26,
+    height: 26,
+    zIndex: 1
   }
 });

@@ -1,5 +1,4 @@
-import * as WebSocket from 'ws';
-import { Server } from 'ws';
+import * as WebSocket from 'websocket';
 
 enum MessageType {
   TYPE_UNKNOW = 0,
@@ -11,21 +10,23 @@ enum MessageType {
   RESPONSE_FROM_ALL = 6
 }
 
+const Client = WebSocket.w3cwebsocket;
+
 class Message {
   public type: MessageType = MessageType.TYPE_UNKNOW;
   public data: string = '';
 }
+console.log('websocket server', WebSocket);
 
 export const initP2PServer = (p2pPort: number) => {
-  const server: Server = new WebSocket.Server({ port: p2pPort });
-  server.on('connection', (ws: WebSocket) => {
+  const ws: WebSocket.w3cwebsocket = new Client(`ws://localhost:${p2pPort}`, 'echo-protocol');
+  ws.onopen = function() {
     initConnection(ws);
-  });
+  };
   console.log('listening websocket p2p port on: ' + p2pPort);
-  return server;
 };
 
-const initConnection = (ws: WebSocket) => {
+const initConnection = (ws: WebSocket.w3cwebsocket) => {
   initMessageHandler(ws);
   initErrorHandler(ws);
 
@@ -44,22 +45,22 @@ const JSONToObject = <T>(data: string): T => {
   }
 };
 
-const initMessageHandler = (ws: WebSocket) => {
-  ws.on('message', (data: string) => {
-
+const initMessageHandler = (ws: WebSocket.w3cwebsocket) => {
+  ws.onmessage = function (data: WebSocket.IMessage) {
     try {
-      const message: Message = JSONToObject<Message>(data);
+      const message: Message = JSONToObject<Message>(data.utf8Data || '');
       console.log('Received message: %s', JSON.stringify(message));
     } catch (e) {
       console.log(e);
     }
-  });
-};
-const initErrorHandler = (ws: WebSocket) => {
-  const closeConnection = (myWs: WebSocket) => {
-    console.log('connection failed to peer: ' + myWs.url);
   };
-  ws.on('close', () => closeConnection(ws));
-  ws.on('error', () => closeConnection(ws));
 };
-const write = (ws: WebSocket, message: Message): void => ws.send(JSON.stringify(message));
+const initErrorHandler = (ws: WebSocket.w3cwebsocket) => {
+  ws.onclose = function() {
+    console.log('connection failed to peer: ' + ws.url);
+  };
+  ws.onerror = function() {
+    console.log('connection failed to peer: ' + ws.url);
+  };
+};
+const write = (ws: WebSocket.w3cwebsocket, message: Message): void => ws.send(JSON.stringify(message));
